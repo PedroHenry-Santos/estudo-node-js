@@ -1,8 +1,10 @@
+import 'reflect-metadata';
 import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
 import routes from './routes'
 
+import '@shared/typeorm';
 
 const app = express();
 
