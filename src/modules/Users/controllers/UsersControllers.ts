@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
-import { ServiceCreateUser } from "../services/ServiceCreateUser";
-
-
+import { 
+  CreateUserService,
+  DeleteUserService,
+  ListUsersService,
+  ShowUserService,
+  UpdatedUserService 
+} from "../services";
 
 interface Data {
   name: string
@@ -11,50 +15,76 @@ interface Data {
 }
 
 export class UsersControllers {
-  public index(request: Request, response: Response) {
-    const serviceCreateUser = ServiceCreateUser.getInstance()
-    const result = serviceCreateUser.list()
+  public async index(request: Request, response: Response) {
+    const listUsersService = new ListUsersService()
     
-    response.json(result)
+    const user = await listUsersService.execute()
+    
+    response.json(user)
   }
 
-  public create(request: Request, response: Response) {
+  public async create(request: Request, response: Response) {
 
-    const {name, age, phone, email} = request.body
+    const {
+      name,
+      email,
+      document,
+      password
+    } = request.body
 
-    const serviceCreateUser = ServiceCreateUser.getInstance()
-    const result = serviceCreateUser.execute({name, age, phone, email})
+    const createUserService = new CreateUserService()
 
-    response.json({message: "usuário cadastrado", data: result})
+    const user = await createUserService.execute({
+      name,
+      email,
+      document,
+      password
+    })
+
+    response.json(user)
   }
 
-  public update(request: Request, response: Response) {
-    const {name, age, phone, email} = request.body
+  public async update(request: Request, response: Response) {
+    const {
+      name,
+      email,
+      document,
+      password
+    } = request.body
+    const { id } = request.params
 
+    const updatedUserService = new UpdatedUserService()
 
-    const serviceCreateUser = ServiceCreateUser.getInstance()
-    const result = serviceCreateUser.update(
-      { name, age, phone, email}
-      )
+    const user = await updatedUserService.execute(
+      +id, 
+      {
+        name,
+        email,
+        document,
+        password
+      }
+    )
 
-    response.json({message: "usuário atualizado", data: result})
+    response.json(user)
   }
 
-  public show(request: Request, response: Response) {
-    const {name} = request.params
+  public async show(request: Request, response: Response) {
+    const { id } = request.params
 
-    const serviceCreateUser = ServiceCreateUser.getInstance()
-    const result = serviceCreateUser.show(name)
+    const showUserService = new ShowUserService()
 
-    response.json({message: "usuário cadastrado",  data: result})
+    const user = await showUserService.execute(+id)
+
+    response.json(user)
   }
 
-  public delete(request: Request, response: Response) {
-    const {name} = request.params
+  public async delete(request: Request, response: Response) {
+    const { id } = request.params
 
-    const serviceCreateUser = ServiceCreateUser.getInstance()
-    const result = serviceCreateUser.delete(name)
+    const deleteUserService = new DeleteUserService()
 
-    response.json({message: "usuário deletado", data:result})
+    const user = await deleteUserService.execute(+id)
+
+    response.json(user)
   }
 }

@@ -1,8 +1,7 @@
-import { IProduct } from "@modules/Products/models/Product";
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
 
 @Entity('products')
-class Product implements IProduct {
+class Product {
     @PrimaryGeneratedColumn('increment')
     id: number
 

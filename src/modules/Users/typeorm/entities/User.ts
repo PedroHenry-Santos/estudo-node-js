@@ -1,8 +1,7 @@
-import { IUser } from "@modules/Users/models/User";
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('users')
-class User implements IUser {
+class User {
   @PrimaryGeneratedColumn('increment')
   id: number;
   

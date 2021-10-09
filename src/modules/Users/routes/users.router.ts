@@ -7,8 +7,8 @@ const usersControllers = new UsersControllers();
 
 routes.get('/', usersControllers.index);
 routes.post('/', usersControllers.create);
-routes.put('/', usersControllers.update);
-routes.get('/:name', usersControllers.show);
-routes.delete('/:name', usersControllers.delete)
+routes.put('/:id', usersControllers.update);
+routes.get('/:id', usersControllers.show);
+routes.delete('/:id', usersControllers.delete)
 
 export default routes
