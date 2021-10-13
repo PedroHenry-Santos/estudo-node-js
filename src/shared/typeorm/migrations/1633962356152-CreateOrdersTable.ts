@@ -1,30 +1,41 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CreateProductsTable1633698722043 implements MigrationInterface {
+export class CreateOrdersTable1633962356152 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'products',
+                name: 'orders',
                 columns: [
                     {
                         name: 'id',
                         type: 'bigserial',
                         isPrimary: true,
                         generationStrategy: 'increment'
+                    }, 
+                    {
+                        name: 'id_user',
+                        type: 'bigserial',
                     },
                     {
-                        name: 'name',
+                        name: 'user_name',
                         type: 'varchar',
-                        isUnique: true
                     },
                     {
-                        name: 'amount',
-                        type: 'varchar'
+                        name: 'user_document',
+                        type: 'integer',
                     },
                     {
-                        name: 'price',
-                        type: 'varchar'
+                        name: 'products',
+                        type: 'bigserial',
+                    },
+                    {
+                        name: 'total_price',
+                        type: 'number'
+                    },
+                    {
+                        name: 'payment_method',
+                        type: 'number'
                     },
                     {
                         name: 'created_at',
@@ -42,7 +53,6 @@ export class CreateProductsTable1633698722043 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('products')
+        await queryRunner.dropTable('orders')
     }
-
 }
