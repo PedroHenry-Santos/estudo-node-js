@@ -18,12 +18,8 @@ export class CreateOrdersTable1633962356152 implements MigrationInterface {
                         type: 'bigserial',
                     },
                     {
-                        name: 'user_name',
-                        type: 'varchar',
-                    },
-                    {
                         name: 'user_document',
-                        type: 'integer',
+                        type: 'varchar',
                     },
                     {
                         name: 'products',
@@ -31,11 +27,13 @@ export class CreateOrdersTable1633962356152 implements MigrationInterface {
                     },
                     {
                         name: 'total_price',
-                        type: 'number'
+                        type: 'decimal',
+                        precision: 10,
+                        scale: 2
                     },
                     {
                         name: 'payment_method',
-                        type: 'number'
+                        type: 'varchar'
                     },
                     {
                         name: 'created_at',

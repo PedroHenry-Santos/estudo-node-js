@@ -6,7 +6,7 @@ interface  Iprops {
     id_user: number;
     products: number; 
     total_price: number;
-    payment_method: number;
+    payment_method: string;
 }
 
 @EntityRepository(Order)
@@ -51,7 +51,7 @@ export class OrdersRepository extends Repository<Order> {
         return order;
     }
 
-    public async findByPaymentMethod (payment_method: number){
+    public async findByPaymentMethod (payment_method: string){
         const order = await this.findOne({
             where:{
                 payment_method

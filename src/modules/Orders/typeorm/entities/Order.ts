@@ -9,10 +9,7 @@ class Order {
     id_user: number
 
     @Column()
-    user_name: string
-
-    @Column()
-    user_document: number
+    user_document: string
 
     @Column()
     products: number
@@ -21,7 +18,7 @@ class Order {
     total_price: number
 
     @Column()
-    payment_method: number
+    payment_method: string
 
     @CreateDateColumn()
     created_at: string
