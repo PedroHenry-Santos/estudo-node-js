@@ -1,18 +1,24 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
 
-@Entity('products')
-class Product {
+@Entity('orders')
+class Order {
     @PrimaryGeneratedColumn('increment')
     id: number
 
     @Column()
-    name: string
+    id_user: number
 
     @Column()
-    amount: string
+    user_document: string
 
     @Column()
-    price: string
+    products: number
+
+    @Column()
+    total_price: number
+
+    @Column()
+    payment_method: string
 
     @CreateDateColumn()
     created_at: string
@@ -20,4 +26,4 @@ class Product {
     @UpdateDateColumn()
     update_at: string
 }
-export default Product;
+export default Order;

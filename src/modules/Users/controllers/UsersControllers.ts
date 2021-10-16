@@ -5,7 +5,7 @@ import {
   ListUsersService,
   ShowUserService,
   UpdatedUserService 
-} from "../services";
+} from "../services/index";
 
 interface Data {
   name: string

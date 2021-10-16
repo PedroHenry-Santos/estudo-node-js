@@ -1,5 +1,11 @@
 import { Request, Response } from "express";
-import { ServiceCreateProduct } from "../services/ServiceCreateProduct"
+import { 
+    CreateProductService,
+    DeleteProductService,
+    ListProductsService,
+    ShowProductService,
+    UpdatedProductService
+ } from "../services"
 
 interface Data{
     name: string,
@@ -9,48 +15,72 @@ interface Data{
 }
 
 export class ProductsController {
-    public index(request: Request,  response: Response){
-        const serviceCreateProduct = ServiceCreateProduct.getInstance()
-        const result = serviceCreateProduct.list()
+    public async index(request: Request, response: Response){
+        const listProductsService = new ListProductsService()
 
-        response.json(result)
+        const product = await listProductsService.execute()
+
+        response.json(product)
     }
 
-    public create(request: Request, response: Response){
-        const {name, price, amount, id_product} = request.body
+    public async create(request: Request, response: Response){
 
-        const serviceCreateProduct = ServiceCreateProduct.getInstance()
-        const result = serviceCreateProduct.execute({name, price, amount, id_product})
+        const {
+            name,
+            amount,
+            price
+        } = request.body
 
-        response.json({message: "Produto cadastrado.", data: result})
+        const createProductService = new CreateProductService()
+
+        const product = await createProductService.execute({
+            name,
+            amount,
+            price
+        })
+
+        response.json(product)
     }
 
-    public update(request: Request, response: Response){
-        const {name, price, amount, id_product} = request.body
+    public async update(request: Request, response: Response) {
+        const {
+            name, 
+            amount,
+            price,
+        } = request.body
+        const { id } = request.params
 
-        const serviceCreateProduct = ServiceCreateProduct.getInstance()
-        const result = serviceCreateProduct.update(
-            {name, price, amount, id_product}
+        const updateProductService = new UpdatedProductService()
+
+        const product = await updateProductService.execute(
+            +id,
+            {
+                name,
+                amount,
+                price
+            }
         )
-        
-        response.json({message: "Produto atualizado", data: result})
+
+        response.json(product)
     }
 
-    public show(request: Request, response: Response){
-        const {name} = request.params
+    public async show(request: Request, response: Response) {
+        const { id } = request.params
 
-        const serviceCreateProduct = ServiceCreateProduct.getInstance()
-        const result = serviceCreateProduct.show(name)
+        const showProductService = new ShowProductService()
 
-        response.json({message: "Produto cadastrado."})
+        const product = await showProductService.execute(+id)
+
+        response.json(product)
     }
 
-    public delete(request: Request, response: Response){
-        const {name} = request.params
+    public async delete(request: Request, response: Response){
+        const { id } = request.params
 
-        const serviceCreateProduct = ServiceCreateProduct.getInstance()
-        const result = serviceCreateProduct.delete(name)
+        const deleteProductService = new DeleteProductService()
 
-        response.json({message: "Produto deletado.", data:result})
+        const product = await deleteProductService.execute(+id)
+
+        response.json(product)
     }
 }
