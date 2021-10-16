@@ -12,6 +12,7 @@ interface IProps {
 }
 
 export class UpdatedUserService {
+  
   public async execute(id: number, { name, email, document, password }:IProps): Promise<User> {
     const usersRepository =  getCustomRepository(UsersRepository);
     const user = await usersRepository.findById(id);
