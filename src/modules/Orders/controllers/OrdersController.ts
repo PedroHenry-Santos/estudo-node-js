@@ -12,6 +12,7 @@ import {
     products: number; 
     total_price: number;
     payment_method: string;
+    user_document: string;
 }
 
 export class OrdersControllers {
@@ -29,7 +30,8 @@ export class OrdersControllers {
             id_user,
             products,
             total_price,
-            payment_method
+            payment_method,
+            user_document
         } = request.body
 
         const createOrderService = new CreateOrderService()
@@ -38,7 +40,8 @@ export class OrdersControllers {
             id_user,
             products,
             total_price,
-            payment_method
+            payment_method,
+            user_document
         })
 
         response.json(order)
@@ -49,7 +52,8 @@ export class OrdersControllers {
             id_user,
             products,
             total_price,
-            payment_method
+            payment_method,
+            user_document
         } = request.body
         const { id } = request.params
 
@@ -61,7 +65,8 @@ export class OrdersControllers {
                 id_user,
                 products,
                 total_price,
-                payment_method
+                payment_method,
+                user_document
             }
         )
 

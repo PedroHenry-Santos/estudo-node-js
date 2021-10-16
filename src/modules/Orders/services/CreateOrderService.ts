@@ -8,10 +8,11 @@ interface IProps {
     products: number; 
     total_price: number;
     payment_method: string;
+    user_document: string;
 }
 
 export class CreateOrderService {
-  public async execute({ id_user, products, total_price, payment_method }:IProps): Promise<Order> {
+  public async execute({ id_user, products, total_price, payment_method, user_document}:IProps): Promise<Order> {
     const ordersRepository =  getCustomRepository(OrdersRepository);
 
     const verify = await ordersRepository.findById(id_user)
@@ -22,7 +23,8 @@ export class CreateOrderService {
         id_user,
         products, 
         total_price, 
-        payment_method
+        payment_method,
+        user_document
     })
 
     await ordersRepository.save(orders)
