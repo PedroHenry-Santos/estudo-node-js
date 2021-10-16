@@ -6,6 +6,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import routes from './routes'
 
 import '@shared/typeorm';
+import AppError from './Error/AppError';
 
 const app = express();
 
@@ -13,10 +14,18 @@ app.use(cors())
 app.use(express.json());
 app.use(routes)
 app.use((error: Error, request: Request, response: Response, next: NextFunction) => {
-  return response.json({
-    status: 400,
-    type: error.name,
-    message: error.message,
+  if (error instanceof AppError) {
+    return response.status(error.statusCode).json({
+      success: false,
+      message: error.message,
+    });
+  }
+
+  console.log(error.message)
+  
+  return response.status(500).json({
+    success: false,
+    message: 'internal server error',
   });
 })
 

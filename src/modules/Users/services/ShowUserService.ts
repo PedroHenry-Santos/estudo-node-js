@@ -1,3 +1,4 @@
+import AppError from '@shared/Error/AppError';
 import { getCustomRepository } from 'typeorm';
 
 import User from '../typeorm/entities/User';
@@ -10,7 +11,7 @@ export class ShowUserService {
     const user = await usersRepository.findById(id);
 
     if (!user) {
-      throw new Error('O burro manda o usuário correto');
+      throw new AppError('Usuário inexistente');
     }
 
     return user;

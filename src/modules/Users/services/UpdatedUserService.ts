@@ -1,3 +1,4 @@
+import AppError from '@shared/Error/AppError';
 import { getCustomRepository } from 'typeorm';
 
 import User from '../typeorm/entities/User';
@@ -17,16 +18,16 @@ export class UpdatedUserService {
     const verify = await usersRepository.findByEmailAndDocument({email,document})
 
     if (!user) {
-      throw new Error('O burro manda o usuário correto');
+      throw new AppError('Usuário inexistente');
     }
 
     if (verify && (user.document !== document || user.email !== email))
-      throw new Error('O document or email exists');
+      throw new AppError('Email ou documento existe');
 
-    user.name = name
-    user.email = email
-    user.document = document
-    user.password = password
+    user.name = name || user.name
+    user.email = email || user.email
+    user.document = document || user.document
+    user.password = password || user.password
 
     await usersRepository.update(id, user)
 

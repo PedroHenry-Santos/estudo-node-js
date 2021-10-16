@@ -1,3 +1,4 @@
+import AppError from '@shared/Error/AppError';
 import { getCustomRepository } from 'typeorm';
 
 import User from '../typeorm/entities/User';
@@ -9,7 +10,7 @@ export class DeleteUserService {
     const user = await usersRepository.findById(id);
 
     if (!user) {
-      throw new Error('O burro manda o usuário correto');
+      throw new AppError('Usuário inexistente');
     }
 
     await usersRepository.remove(user)

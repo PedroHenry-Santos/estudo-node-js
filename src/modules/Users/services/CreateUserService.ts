@@ -1,3 +1,4 @@
+import AppError from '@shared/Error/AppError';
 import { getCustomRepository } from 'typeorm';
 
 import User from '../typeorm/entities/User';
@@ -16,7 +17,7 @@ export class CreateUserService {
 
     const verify = await usersRepository.findByEmailAndDocument({email,document})
 
-    if (verify) throw new Error('O document or email exists');
+    if (verify) throw new AppError('Email ou documento existe');
 
     const user = usersRepository.create({
       name,
