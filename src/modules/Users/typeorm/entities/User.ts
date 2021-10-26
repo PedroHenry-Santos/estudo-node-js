@@ -1,4 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+
+import Order from "../../../Orders/typeorm/entities/Order";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('users')
 class User {
@@ -16,6 +18,10 @@ class User {
 
   @Column()
   password: string;
+
+  @OneToMany(() => Order, orders => orders.id_user)
+  @JoinColumn({name: 'orders'})
+  orders: Order;
 
   @CreateDateColumn()
   created_at: string;

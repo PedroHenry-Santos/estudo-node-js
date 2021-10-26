@@ -32,6 +32,11 @@ export class AddUsers1633182410489 implements MigrationInterface {
                         type: 'varchar',
                     },
                     {
+                        name: 'orders',
+                        type: 'bigint',
+                        isNullable: true
+                    },
+                    {
                         name: 'created_at',
                         type: 'timestamp',
                         default: 'now()'

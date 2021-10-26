@@ -1,12 +1,14 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
+import User from "../../../Users/typeorm/entities/User";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
 
 @Entity('orders')
 class Order {
     @PrimaryGeneratedColumn('increment')
     id: number
 
-    @Column()
-    id_user: number
+    @ManyToOne(() => User, user => user.orders)
+    @JoinColumn({ name: 'id_user' })
+    id_user: User
 
     @Column()
     user_document: string

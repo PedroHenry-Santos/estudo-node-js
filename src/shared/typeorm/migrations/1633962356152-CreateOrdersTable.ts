@@ -12,10 +12,10 @@ export class CreateOrdersTable1633962356152 implements MigrationInterface {
                         type: 'bigserial',
                         isPrimary: true,
                         generationStrategy: 'increment'
-                    }, 
+                    },
                     {
                         name: 'id_user',
-                        type: 'bigserial',
+                        type: 'bigint',
                     },
                     {
                         name: 'user_document',
@@ -23,7 +23,7 @@ export class CreateOrdersTable1633962356152 implements MigrationInterface {
                     },
                     {
                         name: 'products',
-                        type: 'bigserial',
+                        type: 'bigint',
                     },
                     {
                         name: 'total_price',

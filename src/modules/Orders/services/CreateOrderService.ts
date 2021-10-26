@@ -1,3 +1,4 @@
+import { UsersRepository } from '@modules/Users/typeorm/repositories/UsersRepository';
 import { getCustomRepository } from 'typeorm';
 
 import Order from '../typeorm/entities/Order';
@@ -14,13 +15,14 @@ interface IProps {
 export class CreateOrderService {
   public async execute({ id_user, products, total_price, payment_method, user_document}:IProps): Promise<Order> {
     const ordersRepository =  getCustomRepository(OrdersRepository);
+    const usersRepository =  getCustomRepository(UsersRepository);
 
-    const verify = await ordersRepository.findById(id_user)
+    const user = await usersRepository.findById(id_user);
 
-    if (verify) throw new Error('A ordem já foi emitida.');
+    if (!user) throw new Error('O usuário nao existe.');
 
     const orders = ordersRepository.create({
-        id_user,
+        id_user: user,
         products, 
         total_price, 
         payment_method,
